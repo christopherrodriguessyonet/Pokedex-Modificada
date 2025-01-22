@@ -17,6 +17,7 @@ const ImgContainer = styled("div")`
 
 const Img = styled("img")`
     max-width: 100%;
+    
 `;
 
 export const Details = ({ pokemon }: Props) => {
