@@ -1,11 +1,11 @@
 import { Container, Grid, styled, Typography } from "@mui/material";
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { Link, ScrollRestoration, useLoaderData, useLocation } from "react-router-dom";
 import { Header } from "../components/Header";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PokemonCard } from "../components/PokemonCard";
 import { PokemonFilter } from "../components/PokemonFilter";
-import { mapPokemons } from "../services/pokemonsUtils";
+import { mapPokemons } from "../services/pokemonUtils";
 
 const CustonLink = styled(Link)`
     text-decoration: none;
@@ -20,18 +20,13 @@ export function HomePage() {
     const [pokemonList, setPokemonList] = React.useState(mapPokemons(pokemons));
     const [nextPage, setNextPage] = React.useState(next);
 
-    // Reseta os dados iniciais ao clicar em "Home"
-    const resetToInitialState = useCallback(() => {
-        setPokemonList(mapPokemons(pokemons));
-        setNextPage(next);
-    }, [pokemons, next]);
-
-    // Detecta mudanças na rota e reseta quando necessário
+    // Restaura o estado inicial se vier da página de batalha
     useEffect(() => {
-        if (location.pathname === "/") {
-            resetToInitialState();
+        if (location.state?.resetHome) {
+            setPokemonList(mapPokemons(pokemons));
+            setNextPage(next);
         }
-    }, [location.pathname, resetToInitialState]);
+    }, [location.state, pokemons, next]);
 
     const fetchNextPage = async () => {
         const data = await fetch(nextPage).then((res) => res.json()).catch(console.error);

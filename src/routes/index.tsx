@@ -8,14 +8,14 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <HomePage />,
-        loader: HomePageLoader
+        loader: HomePageLoader,
     },
     {
         path: "/pokemon/:id",
         element: <PokemonDetailsPage />,
-        loader: pokemonDetailsPageLoader
-    }
-])
+        loader: pokemonDetailsPageLoader,
+    },
+    
+]);
 
-export const RouterProvider = () => 
-    <RRDRouterProvider router={router}></RRDRouterProvider>
+export const RouterProvider = () => <RRDRouterProvider router={router}></RRDRouterProvider>;

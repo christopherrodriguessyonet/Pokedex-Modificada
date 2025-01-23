@@ -27,7 +27,7 @@ export const PokemonFilter: React.FC<PokemonFilterProps> = ({ setPokemonList }) 
 
                     return {
                         name: pokemonData.name,
-                        imageUrl: pokemonData.sprites.front_default, // Imagem correta
+                        imageUrl: pokemonData.sprites.front_default,
                         id: pokemonData.id,
                     };
                 })

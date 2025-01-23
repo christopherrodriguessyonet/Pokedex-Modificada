@@ -8,7 +8,8 @@
 </head>
 <body>
     <header>
-        <h1>POKEDEX</h1>      
+        <h1>POKEDEX</h1>     
+        
     </header>
     <main>
         <div id="battle-container">
@@ -27,63 +28,74 @@
         <button id="home-btn">HOME</button>
         <div id="winner"></div>
     </main>
+    
     <script>
-        const getRandomPokemon = async () => {
-            const randomId1 = Math.floor(Math.random() * 1000) + 1;
-            const randomId2 = Math.floor(Math.random() * 1000) + 1;
+       const getRandomPokemon = async () => {
+    const randomId1 = Math.floor(Math.random() * 1000) + 1;
+    const randomId2 = Math.floor(Math.random() * 1000) + 1;
 
-            const pokemon1Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId1}`);
-            const pokemon2Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId2}`);
+    const pokemon1Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId1}`);
+    const pokemon2Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId2}`);
 
-            const pokemon1Data = await pokemon1Response.json();
-            const pokemon2Data = await pokemon2Response.json();
+    const pokemon1Data = await pokemon1Response.json();
+    const pokemon2Data = await pokemon2Response.json();
 
-            document.getElementById("pokemon1").innerHTML = `
-                <h2>${pokemon1Data.name}</h2>
-                <img src="${pokemon1Data.sprites.front_default}" alt="${pokemon1Data.name}" />
-                <p>Ataque: ${pokemon1Data.stats[1].base_stat}</p>
-                <p>Defesa: ${pokemon1Data.stats[2].base_stat}</p>
-                <p>Velocidade: ${pokemon1Data.stats[0].base_stat}</p>
-            `;
-            document.getElementById("pokemon2").innerHTML = `
-                <h2>${pokemon2Data.name}</h2>
-                <img src="${pokemon2Data.sprites.front_default}" alt="${pokemon2Data.name}" />
-                <p>Ataque: ${pokemon2Data.stats[1].base_stat}</p>
-                <p>Defesa: ${pokemon2Data.stats[2].base_stat}</p>
-                <p>Velocidade: ${pokemon2Data.stats[0].base_stat}</p>
-            `;
+    document.getElementById("pokemon1").innerHTML = `
+        <h2>${pokemon1Data.name}</h2>
+        <img src="${pokemon1Data.sprites.front_default}" alt="${pokemon1Data.name}" />
+        <p>Ataque: ${pokemon1Data.stats[1].base_stat}</p>
+        <p>Defesa: ${pokemon1Data.stats[2].base_stat}</p>
+        <p>Velocidade: ${pokemon1Data.stats[0].base_stat}</p>
+    `;
+    document.getElementById("pokemon2").innerHTML = `
+        <h2>${pokemon2Data.name}</h2>
+        <img src="${pokemon2Data.sprites.front_default}" alt="${pokemon2Data.name}" />
+        <p>Ataque: ${pokemon2Data.stats[1].base_stat}</p>
+        <p>Defesa: ${pokemon2Data.stats[2].base_stat}</p>
+        <p>Velocidade: ${pokemon2Data.stats[0].base_stat}</p>
+    `;
 
-            const winner = comparePokemons(pokemon1Data, pokemon2Data);
-            document.getElementById("winner").innerHTML = `<h2>Vencedor: ${winner.name}</h2><img src="${winner.sprites.front_default}" alt="${winner.name}" />`;
-        };
+    const winner = comparePokemons(pokemon1Data, pokemon2Data);
 
-        const comparePokemons = (pokemon1, pokemon2) => {
-            const stats1 = {
-                attack: pokemon1.stats[1].base_stat,
-                defense: pokemon1.stats[2].base_stat,
-                speed: pokemon1.stats[0].base_stat,
-            };
-            const stats2 = {
-                attack: pokemon2.stats[1].base_stat,
-                defense: pokemon2.stats[2].base_stat,
-                speed: pokemon2.stats[0].base_stat,
-            };
+    // Mensagem antes de exibir o vencedor
+    document.getElementById("winner").innerHTML = `<h2>Calculando o vencedor... Se prefere, o vencedor é:</h2>`;
 
-            let score1 = stats1.attack + stats1.defense + stats1.speed;
-            let score2 = stats2.attack + stats2.defense + stats2.speed;
+    // Adiciona um atraso de 3 segundos antes de mostrar o vencedor
+    setTimeout(() => {
+        document.getElementById("winner").innerHTML = `
+            <h2>Vencedor: ${winner.name}</h2>
+            <img src="${winner.sprites.front_default}" alt="${winner.name}" />
+        `;
+    }, 3000); //3000ms =3 segundos
+};
 
-            return score1 > score2 ? pokemon1 : pokemon2;
-        };
+const comparePokemons = (pokemon1, pokemon2) => {
+    const stats1 = {
+        attack: pokemon1.stats[1].base_stat,
+        defense: pokemon1.stats[2].base_stat,
+        speed: pokemon1.stats[0].base_stat,
+    };
+    const stats2 = {
+        attack: pokemon2.stats[1].base_stat,
+        defense: pokemon2.stats[2].base_stat,
+        speed: pokemon2.stats[0].base_stat,
+    };
 
-        document.getElementById("new-battle-btn").addEventListener("click", () => {
-            getRandomPokemon();
-        });
+    let score1 = stats1.attack + stats1.defense + stats1.speed;
+    let score2 = stats2.attack + stats2.defense + stats2.speed;
 
-        document.getElementById("home-btn").addEventListener("click", () => {
-            window.location.href = "http://localhost:5173/";
-        });
+    return score1 > score2 ? pokemon1 : pokemon2;
+};
 
-        getRandomPokemon();
+document.getElementById("new-battle-btn").addEventListener("click", () => {
+    getRandomPokemon();
+});
+
+document.getElementById("home-btn").addEventListener("click", () => {
+    window.location.href = "http://localhost:5173/";
+});
+getRandomPokemon();
+
     </script>
 </body>
 </html>
