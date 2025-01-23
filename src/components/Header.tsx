@@ -29,7 +29,7 @@ const Component = (props) => {
           </Button>
           )}
 
-<Box display="flex" justifyContent="space-evenly" flexGrow={1}>
+            <Box display="flex" justifyContent="space-evenly" flexGrow={1}>
                     {props.previus}
                     <Typography 
                         variant="h4"
