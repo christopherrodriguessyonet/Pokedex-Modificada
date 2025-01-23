@@ -1,4 +1,3 @@
-/* Estilos para o layout e aparência */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -15,9 +14,8 @@ header {
     width: 100%;
     background-color: #e53935;
     text-align: center;
-    padding: 10px 0;  /* Reduzido o padding */
     color: white;
-    font-size: 1.5rem;  /* Reduzido o tamanho da fonte */
+    font-size: 1.5rem;
 }
 
 
