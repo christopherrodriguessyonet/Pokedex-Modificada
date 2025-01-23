@@ -15,17 +15,28 @@ export const PokemonFilter: React.FC<PokemonFilterProps> = ({ setPokemonList }) 
     ];
 
     const fetchPokemonsByType = async (type: string) => {
-        const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
-        const data = await response.json();
-        const pokemonsWithImages = data.pokemon.map((poke: any) => {
-            const pokemonId = poke.pokemon.url.split("/")[6]; // Extrai o ID do Pokémon da URL
-            return {
-                name: poke.pokemon.name,
-                imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`, // Corrigido para interpolação da URL
-                id: pokemonId,
-            };
-        });
-        setPokemonList(pokemonsWithImages);
+        try {
+            const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+            const data = await response.json();
+
+            // Busca os detalhes completos de cada Pokémon
+            const pokemonsWithImages = await Promise.all(
+                data.pokemon.map(async (poke: any) => {
+                    const pokemonResponse = await fetch(poke.pokemon.url);
+                    const pokemonData = await pokemonResponse.json();
+
+                    return {
+                        name: pokemonData.name,
+                        imageUrl: pokemonData.sprites.front_default, // Imagem correta
+                        id: pokemonData.id,
+                    };
+                })
+            );
+
+            setPokemonList(pokemonsWithImages);
+        } catch (error) {
+            console.error("Erro ao buscar Pokémon por tipo:", error);
+        }
     };
 
     const handleTypeClick = (type: string) => {
