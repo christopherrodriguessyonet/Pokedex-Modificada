@@ -1,0 +1,77 @@
+/* Estilos para o layout e aparência */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+}
+
+header {
+    width: 100%;
+    background-color: #e53935;
+    text-align: center;
+    padding: 10px 0;  /* Reduzido o padding */
+    color: white;
+    font-size: 1.5rem;  /* Reduzido o tamanho da fonte */
+}
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+#battle-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#pokemon1, #pokemon2 {
+    text-align: center;
+    width: 45%;
+}
+
+#pokemon1-img, #pokemon2-img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #e53935;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #d32f2f;
+}
+
+#winner {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#winner img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}

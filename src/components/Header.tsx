@@ -29,11 +29,15 @@ const Component = (props) => {
           </Button>
           )}
 
-          <Box display="flex" justifyContent="space-evenly" flexGrow={1}>
-            <Typography variant="h4" component="h1" align="center">
-              {props.title}
-            </Typography>
-          </Box>
+<Box display="flex" justifyContent="space-evenly" flexGrow={1}>
+                    {props.previus}
+                    <Typography 
+                        variant="h4"
+                        component="h1"
+                        align="center" >{props.title}</Typography>
+                    {props.next}
+                    </Box>
+
         </Toolbar>
       </AppBar>
       <Box sx={{ marginTop: "64px" }}></Box>
