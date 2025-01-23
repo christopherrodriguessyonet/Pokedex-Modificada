@@ -1,40 +1,44 @@
-import { memo } from "react"
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material"
-import { useNavigate } from "react-router-dom"
+import { memo } from "react";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 
-type Props = { 
-    showHomeBtn?: boolean
-    title: string
-    next?: JSX.Element
-    previus?: JSX.Element
-}
+const Component = (props) => {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-const Component = (props: Props) => {
-    const navigate = useNavigate();
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed" color="error">
+        <Toolbar>
+          <Button
+            color="inherit"
+            onClick={() => navigate("/")}
+            variant="text"
+          >
+            HOME
+          </Button>
 
-    return (
-        <Box sx={{flexGrow: 1}}>
-            <AppBar position="static" color="error">
-                <Toolbar>
-                    {props.showHomeBtn && (
-                        <Button color="inherit" onClick={() => navigate("/")} variant="text" >HOME</Button>
-                    )}
-                    <Box display="flex" justifyContent="space-evenly" flexGrow={1}>
-                    {props.previus}
-                    <Typography 
-                        variant="h4"
-                        component="h1"
-                        align="center" >{props.title}</Typography>
-                    {props.next}
-                    </Box>
-                </Toolbar>
-            </AppBar>
-        </Box>
-    )
-}
+          {location.pathname === "/" && (
+            <Button
+            color="inherit"
+            onClick={() => window.location.href = "battle.html"} // Redireciona para o arquivo HTML
+            variant="text"
+            sx={{ marginLeft: 3 }}
+          >
+            BATALHA
+          </Button>
+          )}
 
-const propsAreEqual = (prevProps: Readonly<Props>, nextProps: Readonly<Props>) => {
-    return prevProps.title === nextProps.title;
-}
+          <Box display="flex" justifyContent="space-evenly" flexGrow={1}>
+            <Typography variant="h4" component="h1" align="center">
+              {props.title}
+            </Typography>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Box sx={{ marginTop: "64px" }}></Box>
+    </Box>
+  );
+};
 
-export const Header =  memo(Component, propsAreEqual)
+export const Header = memo(Component);

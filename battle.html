@@ -1,0 +1,55 @@
+<!-- battle.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batalha Pokémon</title>
+</head>
+<body>
+    <div>
+        <h1>Batalha</h1>
+        <div id="battle-container">
+            <div id="pokemon1">
+                <h2>Carregando Pokémon 1...</h2>
+                <img id="pokemon1-img" src="" alt="Pokémon 1" />
+            </div>
+            <div id="pokemon2">
+                <h2>Carregando Pokémon 2...</h2>
+                <img id="pokemon2-img" src="" alt="Pokémon 2" />
+            </div>
+        </div>
+        <button id="new-battle-btn">Batalhar Novamente</button>
+    </div>
+
+    <script>
+        const getRandomPokemon = async () => {
+            const randomId1 = Math.floor(Math.random() * 1000) + 1;
+            const randomId2 = Math.floor(Math.random() * 1000) + 1;
+
+            const pokemon1Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId1}`);
+            const pokemon2Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId2}`);
+
+            const pokemon1Data = await pokemon1Response.json();
+            const pokemon2Data = await pokemon2Response.json();
+
+            document.getElementById("pokemon1").innerHTML = `
+                <h2>${pokemon1Data.name}</h2>
+                <img src="${pokemon1Data.sprites.front_default}" alt="${pokemon1Data.name}" />
+            `;
+
+            document.getElementById("pokemon2").innerHTML = `
+                <h2>${pokemon2Data.name}</h2>
+                <img src="${pokemon2Data.sprites.front_default}" alt="${pokemon2Data.name}" />
+            `;
+        };
+
+        document.getElementById("new-battle-btn").addEventListener("click", () => {
+            getRandomPokemon();
+        });
+
+        // Carrega os Pokémons ao carregar a página
+        getRandomPokemon();
+    </script>
+</body>
+</html>
