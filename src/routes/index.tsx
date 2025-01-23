@@ -3,7 +3,6 @@ import { HomePage } from "./Home.page";
 import { HomePageLoader } from "./HomePage.loader";
 import { pokemonDetailsPageLoader } from "./PokemonDetailsPage.loader";
 import { PokemonDetailsPage } from "./PokemonDetails.page";
-import BattlePage from "./BattlePage";
 
 const router = createBrowserRouter([
     {

@@ -9,7 +9,6 @@
 <body>
     <header>
         <h1>POKEDEX</h1>      
-        
     </header>
     <main>
         <div id="battle-container">
@@ -25,6 +24,7 @@
             </div>
         </div>
         <button id="new-battle-btn">Batalhar Novamente</button>
+        <button id="home-btn">HOME</button>
         <div id="winner"></div>
     </main>
     <script>
@@ -77,6 +77,10 @@
 
         document.getElementById("new-battle-btn").addEventListener("click", () => {
             getRandomPokemon();
+        });
+
+        document.getElementById("home-btn").addEventListener("click", () => {
+            window.location.href = "http://localhost:5173/";
         });
 
         getRandomPokemon();
